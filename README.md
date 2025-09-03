@@ -1,7 +1,12 @@
+# Creating Virtual Enviroment
+```bash
+python3 -m venv venv
+```
+
 # Steps to Start a New Session:
 1. Open your terminal and navigate to the project directory:
    ```bash
-   cd /Users/student/Desktop/Fall_2025/mgsc-310
+    cd /Users/student/Desktop/Fall_2025/mgsc-310
    ```
 
 2. Activate the virtual environment:
