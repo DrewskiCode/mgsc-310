@@ -20,17 +20,25 @@ except Exception as e:
     exit()
 
 # Print the first 10 rows
+print("=" * 50)
 print("First 10 rows of the dataset:")
 print(uber_data.head(10))
+print("=" * 50)
 
 # Display column names
-print("\nColumn names:")
-print(uber_data.columns)
+print("\nColumn Names:")
+print("-" * 50)
+print(uber_data.columns.to_list())
+print("-" * 50)
 
 # Display basic information about the dataset
-print("\nDataset info:")
-print(uber_data.info())
+print("\nDataset Info:")
+print("-" * 50)
+uber_data.info()
+print("-" * 50)
 
 # Display summary statistics
-print("\nSummary statistics:")
+print("\nSummary Statistics:")
+print("-" * 50)
 print(uber_data.describe())
+print("-" * 50)
