@@ -42,3 +42,47 @@ print("\nSummary Statistics:")
 print("-" * 50)
 print(uber_data.describe())
 print("-" * 50)
+
+# Inspect column names
+print("\nInspecting Column Names:")
+print("-" * 50)
+print(uber_data.columns.to_list())
+print("-" * 50)
+
+# Data Cleaning Functions
+def clean_column(column):
+    """Generic cleaning function for string columns."""
+    return column.str.strip() if column.dtype == "object" else column
+
+# Apply cleaning to all columns
+uber_data = uber_data.apply(clean_column)
+
+# Check for null values
+print("\nNull Value Analysis:")
+print("-" * 50)
+print(uber_data.isnull().sum())
+print("-" * 50)
+
+# Recommend handling null values
+null_threshold = 0.3  # Drop columns with more than 30% null values
+columns_to_drop = uber_data.columns[uber_data.isnull().mean() > null_threshold]
+if not columns_to_drop.empty:
+    print(f"\nDropping columns with more than {null_threshold * 100}% null values: {columns_to_drop.tolist()}")
+    uber_data = uber_data.drop(columns=columns_to_drop)
+
+# Drop rows with any remaining null values
+print("\nDropping rows with remaining null values...")
+uber_data = uber_data.dropna()
+
+# Check for null values
+print("\nNull Value Analysis:")
+print("-" * 50)
+print(uber_data.isnull().sum())
+print("-" * 50)
+
+# Display cleaned dataset
+print("\nCleaned Dataset:")
+print("-" * 50)
+print(uber_data.head(10))
+print("-" * 50)
+
