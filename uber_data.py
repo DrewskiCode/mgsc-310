@@ -64,7 +64,7 @@ print(uber_data.isnull().sum())
 print("-" * 50)
 
 # Recommend handling null values
-null_threshold = 0.3  # Drop columns with more than 30% null values
+null_threshold = 0.7  # Drop columns with more than 30% null values
 columns_to_drop = uber_data.columns[uber_data.isnull().mean() > null_threshold]
 if not columns_to_drop.empty:
     print(f"\nDropping columns with more than {null_threshold * 100}% null values: {columns_to_drop.tolist()}")
@@ -91,4 +91,48 @@ print("\nNumber of rows in the cleaned dataset:")
 print("-" * 50)
 print(len(uber_data))
 print("-" * 50)
+
+# Example Analysis: Distribution of Trip Durations
+import matplotlib.pyplot as plt
+
+# Example Analysis: Distribution of Vehicle Types
+# Check if the 'Vehicle Type' column exists
+if 'Vehicle Type' in uber_data.columns:
+    plt.figure(figsize=(10, 6))
+    vehicle_counts = uber_data['Vehicle Type'].value_counts()
+    total = vehicle_counts.sum()
+    ax = vehicle_counts.plot(kind='bar', color='orange', edgecolor='black')
+    
+    # Add percentages on top of each bar
+    for p in ax.patches:
+        percentage = f"{(p.get_height() / total) * 100:.1f}%"
+        ax.annotate(percentage, (p.get_x() + p.get_width() / 2, p.get_height()), 
+                    ha='center', va='bottom', fontsize=10, color='black')
+    
+    plt.title('Distribution of Vehicle Types', fontsize=16)
+    plt.xlabel('Vehicle Type', fontsize=12)
+    plt.ylabel('Frequency', fontsize=12)
+    plt.xticks(rotation=45)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.show()
+else:
+    print("The column 'Vehicle Type' does not exist in the dataset.")
+
+# Example Analysis: Average Trip Duration by Vehicle Type
+if 'Vehicle Type' in uber_data.columns and 'Booking Value' in uber_data.columns:
+    avg_trip_duration = uber_data.groupby('Vehicle Type')['Booking Value'].mean()
+    print("\nAverage Booking Value by Vehicle Type:")
+    print(avg_trip_duration)
+    
+    # Visualize the average trip duration
+    plt.figure(figsize=(10, 6))
+    avg_trip_duration.plot(kind='bar', color='skyblue', edgecolor='black')
+    plt.title('Average Booking Value by Vehicle Type', fontsize=16)
+    plt.xlabel('Vehicle Type', fontsize=12)
+    plt.ylabel('Average Booking Value (dollars)', fontsize=12)
+    plt.xticks(rotation=45)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.show()
+else:
+    print("The required columns 'Vehicle Type' or 'Trip Duration' do not exist in the dataset.")
 
