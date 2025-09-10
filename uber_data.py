@@ -86,3 +86,9 @@ print("-" * 50)
 print(uber_data.head(10))
 print("-" * 50)
 
+# Display the number of rows in the cleaned dataset
+print("\nNumber of rows in the cleaned dataset:")
+print("-" * 50)
+print(len(uber_data))
+print("-" * 50)
+
